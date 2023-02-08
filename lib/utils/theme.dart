@@ -1,8 +1,10 @@
 //** THEME CONTROLLER */
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../application/local_storage/storage_handler.dart';
+import 'utils.dart';
 
 final themeProvider = ChangeNotifierProvider<ThemeController>((ref) {
   final database = ref.watch(databaseService);
@@ -27,24 +29,25 @@ class ThemeController with ChangeNotifier {
 }
 
 //** DATABASE CLASS */
-final databaseService = Provider<DatabaseService>((_) => DatabaseService());
+final databaseService = Provider<DatabaseService>((ref) {
+  return DatabaseService(ref);
+});
 
 class DatabaseService {
-  late final Box<String> themeBox;
+  final Ref ref;
 
-  String get savedTheme => themeBox.values.first;
-
-  Future<void> initTheme() async {
-    await Hive.openBox<String>('theme').then((value) => themeBox = value);
-
-    //first time loading
-    if (themeBox.values.isEmpty) {
-      themeBox.add('light');
-    }
+  DatabaseService(this.ref) {
+    initTheme();
   }
 
-  Future<void> toggleSaveTheme(String mode) async =>
-      await themeBox.put(0, mode);
+  get savedTheme => ref.watch(hiveProvider).get(KStrings.theme);
+
+  void initTheme() {
+    ref.watch(hiveProvider).put(KStrings.theme, 'light');
+  }
+
+  void toggleSaveTheme(String mode) =>
+      ref.watch(hiveProvider).put(KStrings.theme, mode);
 }
 
 class MyTheme {
@@ -153,50 +156,8 @@ class MyTheme {
     useMaterial3: true,
     // To use the playground font, add GoogleFonts package and uncomment
     // fontFamily: GoogleFonts.notoSans().fontFamily,
-    textTheme: const TextTheme().copyWith(
-      bodyText1: const TextStyle(
-        color: Colors.white,
-      ),
-      bodyText2: const TextStyle(
-        color: Colors.white,
-      ),
-      headline1: const TextStyle(
-        color: Colors.white,
-      ),
-      headline2: const TextStyle(
-        color: Colors.white,
-      ),
-      headline3: const TextStyle(
-        color: Colors.white,
-      ),
-      headline4: const TextStyle(
-        color: Colors.white,
-      ),
-      headline5: const TextStyle(
-        color: Colors.white,
-      ),
-      headline6: const TextStyle(
-        color: Colors.white,
-      ),
-      subtitle1: const TextStyle(
-        color: Colors.white,
-      ),
-      subtitle2: const TextStyle(
-        color: Colors.white,
-      ),
-      caption: const TextStyle(
-        color: Colors.white,
-      ),
-      button: const TextStyle(
-        color: Colors.white,
-      ),
-      overline: const TextStyle(
-        color: Colors.white,
-      ),
-    ),
   );
 // If you do not have a themeMode switch, uncomment this line
 // to let the device system mode control the theme mode:
 // themeMode: ThemeMode.system,
-
 }

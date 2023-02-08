@@ -5,17 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_socket/route/go_router.dart';
-import 'package:flutter_socket/utils/api_routes.dart';
-import 'package:flutter_socket/utils/theme.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'application/global.dart';
-import 'utils/network_handler.dart';
-import 'utils/strings.dart';
+import 'application/local_storage/storage_handler.dart';
+import 'utils/utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final container = ProviderContainer(
+    observers: [ProviderLog()],
+  );
 
   Logger.init(
     true, // isEnable ，if production ，please false
@@ -33,26 +34,19 @@ Future<void> main() async {
     phoneError: Colors.redAccent,
   );
 
-  await Hive.initFlutter();
-  final box = await Hive.openBox(KStrings.cacheBox);
+  final box = container.read(hiveProvider);
+  await box.init();
+
+  // container.read(firebasePushNotificationProvider);
+  container.read(themeProvider);
+
   final String token = box.get(KStrings.token, defaultValue: '');
 
-  final myApi = NetworkHandler.instance;
-  myApi.setup(baseUrl: APIRoute.BASE_URL, showLogs: false);
-  myApi.setToken(
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDcyOTcyMzYsImRhdGEiOnsiX2lkIjoiNjNjY2RmY2U3OTFmNDgxZDAyOWNjOTJkIiwicm9sZSI6InVzZXIifSwiaWF0IjoxNjc1NzYxMjM2fQ.Gwm5UO-6Zv3Jr6Po-RdOj_IGqLjpMNIC8Iy5cmEaaoY');
+  NetworkHandler.instance
+    ..setup(baseUrl: APIRoute.BASE_URL, showLogs: false)
+    ..setToken(token);
 
   Logger.d('token: $token');
-
-  final _databaseService = DatabaseService();
-  await _databaseService.initTheme();
-
-  final container = ProviderContainer(
-    overrides: [
-      databaseService.overrideWithValue(_databaseService),
-    ],
-    observers: [ProviderLog()],
-  );
 
   runApp(
     ProviderScope(

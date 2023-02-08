@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 
-import 'package:flutter_socket/utils/clean_failour.dart';
-
 import '../../domain/message_list_response.dart';
+import '../../utils/utils.dart';
 
 class ChatState extends Equatable {
   final bool loading;
