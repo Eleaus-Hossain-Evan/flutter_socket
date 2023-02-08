@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:flutter_socket/domain/message_list_response.dart';
+import 'package:flutter_socket/domain/message_send/message_send_body.dart';
 import 'package:flutter_socket/domain/message_send/message_send_response.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
@@ -30,8 +31,10 @@ class ChatRepo {
     }, (r) => right(r));
   }
 
-  Future<Either<CleanFailure, MessageSendResponse>> messageSend() async {
-    final data = await myApi.get(
+  Future<Either<CleanFailure, MessageSendResponse>> messageSend(
+      MessageSendBody body) async {
+    final data = await myApi.post(
+      body: body.toMap(),
       fromData: (json) => MessageSendResponse.fromMap(json),
       endPoint: APIRoute.MESSAGE_SEND,
       withToken: true,

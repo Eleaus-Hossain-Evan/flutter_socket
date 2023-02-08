@@ -44,7 +44,8 @@ Future<void> main() async {
 
   NetworkHandler.instance
     ..setup(baseUrl: APIRoute.BASE_URL, showLogs: false)
-    ..setToken(token);
+    ..setToken(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDcyOTcyMzYsImRhdGEiOnsiX2lkIjoiNjNjY2RmY2U3OTFmNDgxZDAyOWNjOTJkIiwicm9sZSI6InVzZXIifSwiaWF0IjoxNjc1NzYxMjM2fQ.Gwm5UO-6Zv3Jr6Po-RdOj_IGqLjpMNIC8Iy5cmEaaoY');
 
   Logger.d('token: $token');
 

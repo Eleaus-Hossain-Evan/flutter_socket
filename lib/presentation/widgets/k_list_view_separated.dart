@@ -4,24 +4,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class KListViewSeparated extends StatelessWidget {
   const KListViewSeparated({
     Key? key,
+    required this.itemCount,
+    required this.itemBuilder,
     this.shrinkWrap = false,
     this.physics = const BouncingScrollPhysics(),
-    required this.builder,
-    this.separator,
-    this.alternateWidget,
-    required this.count,
     this.scrollDirection = Axis.vertical,
     this.gap = 10,
+    this.separator,
+    this.alternateWidget,
     this.controller,
     this.edgePadding,
     this.padding,
+    this.reverse = false,
   }) : super(key: key);
 
-  final bool shrinkWrap;
+  final bool shrinkWrap, reverse;
   final ScrollPhysics physics;
-  final Widget Function(BuildContext context, int index) builder;
+  final Widget Function(BuildContext context, int index) itemBuilder;
   final Widget? separator, alternateWidget;
-  final int count;
+  final int itemCount;
   final Axis scrollDirection;
   final double gap;
   final ScrollController? controller;
@@ -30,7 +31,7 @@ class KListViewSeparated extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return count == 0
+    return itemCount == 0
         ? Center(child: alternateWidget ?? const Text('No data'))
         : ListView.separated(
             padding: padding ??
@@ -42,8 +43,9 @@ class KListViewSeparated extends StatelessWidget {
             scrollDirection: scrollDirection,
             shrinkWrap: shrinkWrap,
             physics: physics,
-            itemBuilder: builder,
+            itemBuilder: itemBuilder,
             controller: controller,
+            reverse: reverse,
             separatorBuilder: (context, index) {
               return separator ??
                   (scrollDirection == Axis.vertical
@@ -54,7 +56,7 @@ class KListViewSeparated extends StatelessWidget {
                           width: gap.w,
                         ));
             },
-            itemCount: count,
+            itemCount: itemCount,
           );
   }
 }

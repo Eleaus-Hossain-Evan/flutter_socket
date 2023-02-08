@@ -1,6 +1,7 @@
 //** THEME CONTROLLER */
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../application/local_storage/storage_handler.dart';
@@ -52,110 +53,66 @@ class DatabaseService {
 
 class MyTheme {
   static final lightTheme = FlexThemeData.light(
-    scheme: FlexScheme.money,
-    surfaceMode: FlexSurfaceMode.highSurfaceLowScaffold,
-    blendLevel: 4,
-    appBarStyle: FlexAppBarStyle.material,
-    tabBarStyle: FlexTabBarStyle.forBackground,
+    scheme: FlexScheme.hippieBlue,
+    appBarElevation: 5.0,
     lightIsWhite: true,
-    tooltipsMatchBackground: true,
     subThemesData: const FlexSubThemesData(
-      blendOnLevel: 40,
-      buttonMinSize: Size.fromHeight(40),
-      elevatedButtonRadius: 8.0,
-      outlinedButtonRadius: 8.0,
-      elevatedButtonSchemeColor: SchemeColor.onInverseSurface,
+      useFlutterDefaults: true,
+      defaultRadius: 8.0,
+      elevatedButtonSchemeColor: SchemeColor.onPrimary,
       elevatedButtonSecondarySchemeColor: SchemeColor.primary,
       outlinedButtonOutlineSchemeColor: SchemeColor.primary,
-      switchSchemeColor: SchemeColor.primary,
-      checkboxSchemeColor: SchemeColor.primary,
-      radioSchemeColor: SchemeColor.primary,
       unselectedToggleIsColored: true,
-      inputDecoratorSchemeColor: SchemeColor.primaryContainer,
-      inputDecoratorRadius: 40.0,
-      inputDecoratorUnfocusedHasBorder: false,
-      fabUseShape: false,
-      snackBarBackgroundSchemeColor: SchemeColor.outline,
-      chipSchemeColor: SchemeColor.primaryContainer,
-      chipRadius: 40.0,
-      dialogRadius: 8.0,
-      timePickerDialogRadius: 8.0,
-      // buttonMinSize: Size.fromHeight(40),
-      bottomNavigationBarSelectedLabelSchemeColor: SchemeColor.primary,
-      bottomNavigationBarUnselectedLabelSchemeColor:
-          SchemeColor.onPrimaryContainer,
-      bottomNavigationBarSelectedIconSchemeColor: SchemeColor.primary,
-      bottomNavigationBarUnselectedIconSchemeColor:
-          SchemeColor.onPrimaryContainer,
-      navigationBarUnselectedLabelSchemeColor: SchemeColor.onSecondaryContainer,
-      navigationBarUnselectedIconSchemeColor: SchemeColor.onSecondaryContainer,
-      navigationBarBackgroundSchemeColor: SchemeColor.background,
-      appBarBackgroundSchemeColor: SchemeColor.background,
+      inputDecoratorIsFilled: false,
+      inputDecoratorRadius: 8.0,
+      dialogBackgroundSchemeColor: SchemeColor.onPrimary,
+      dialogRadius: 24.0,
+      timePickerDialogRadius: 24.0,
+      appBarBackgroundSchemeColor: SchemeColor.onPrimary,
+      bottomSheetRadius: 24.0,
     ),
+
     keyColors: const FlexKeyColors(
       useSecondary: true,
       useTertiary: true,
       keepPrimary: true,
-      keepSecondary: true,
       keepTertiary: true,
-      keepPrimaryContainer: true,
-      keepSecondaryContainer: true,
-      keepTertiaryContainer: true,
     ),
+    tones: FlexTones.vividBackground(Brightness.light)
+        .onMainsUseBW()
+        .onSurfacesUseBW(),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     useMaterial3: true,
     // To use the playground font, add GoogleFonts package and uncomment
-    // fontFamily: GoogleFonts.notoSans().fontFamily,
+    fontFamily: GoogleFonts.notoSans().fontFamily,
   );
   static final darkTheme = FlexThemeData.dark(
-    scheme: FlexScheme.money,
-    surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
+    scheme: FlexScheme.hippieBlue,
+    surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
     blendLevel: 15,
-    appBarStyle: FlexAppBarStyle.material,
-    tabBarStyle: FlexTabBarStyle.forBackground,
-    tooltipsMatchBackground: true,
     subThemesData: const FlexSubThemesData(
-      blendOnLevel: 30,
-      buttonMinSize: Size.fromHeight(40),
-      elevatedButtonRadius: 8.0,
-      outlinedButtonRadius: 8.0,
-      elevatedButtonSchemeColor: SchemeColor.onInverseSurface,
+      useFlutterDefaults: true,
+      defaultRadius: 8.0,
+      elevatedButtonSchemeColor: SchemeColor.onPrimary,
       elevatedButtonSecondarySchemeColor: SchemeColor.primary,
       outlinedButtonOutlineSchemeColor: SchemeColor.primary,
-      switchSchemeColor: SchemeColor.primary,
-      checkboxSchemeColor: SchemeColor.primary,
-      radioSchemeColor: SchemeColor.primary,
-
       unselectedToggleIsColored: true,
-      inputDecoratorRadius: 40.0,
-      inputDecoratorUnfocusedHasBorder: false,
-      fabUseShape: false,
-      snackBarBackgroundSchemeColor: SchemeColor.outline,
-      chipSchemeColor: SchemeColor.primaryContainer,
-      chipRadius: 40.0,
-      dialogRadius: 8.0,
-      timePickerDialogRadius: 8.0,
-      // buttonMinSize: Size.fromHeight(40),
-      bottomNavigationBarSelectedLabelSchemeColor: SchemeColor.primary,
-      bottomNavigationBarUnselectedLabelSchemeColor:
-          SchemeColor.onPrimaryContainer,
-      bottomNavigationBarSelectedIconSchemeColor: SchemeColor.primary,
-      bottomNavigationBarUnselectedIconSchemeColor:
-          SchemeColor.onPrimaryContainer,
-      navigationBarUnselectedLabelSchemeColor: SchemeColor.onSecondaryContainer,
-      navigationBarUnselectedIconSchemeColor: SchemeColor.onSecondaryContainer,
-      navigationBarBackgroundSchemeColor: SchemeColor.background,
-      appBarBackgroundSchemeColor: SchemeColor.background,
-      dialogBackgroundSchemeColor: SchemeColor.primaryContainer,
+      inputDecoratorIsFilled: false,
+      inputDecoratorRadius: 8.0,
+      dialogBackgroundSchemeColor: SchemeColor.onPrimary,
+      dialogRadius: 24.0,
+      timePickerDialogRadius: 24.0,
+      bottomSheetRadius: 24.0,
     ),
     keyColors: const FlexKeyColors(
       useSecondary: true,
       useTertiary: true,
     ),
+    tones: FlexTones.vividBackground(Brightness.dark),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     useMaterial3: true,
-    // To use the playground font, add GoogleFonts package and uncomment
-    // fontFamily: GoogleFonts.notoSans().fontFamily,
+    // To use the Playground font, add GoogleFonts package and uncomment
+    fontFamily: GoogleFonts.notoSans().fontFamily,
   );
 // If you do not have a themeMode switch, uncomment this line
 // to let the device system mode control the theme mode:

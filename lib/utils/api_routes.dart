@@ -5,7 +5,7 @@ class APIRoute {
   static const String WEB_URL = "";
 
   // static const String BASE_URL = "https://api-car.b2gsoft.xyz/";
-  static const String BASE_URL = "https://api.senaiyah.com/";
+  static const String BASE_URL = "https://api-suppliers.b2gsoft.xyz/";
   // static const String BASE_URL_LOCAL = "http://192.168.68.118:3697/";
   static const String API_V1 = "api/v1/";
 

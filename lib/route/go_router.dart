@@ -65,8 +65,11 @@ class RouterNotifier extends ChangeNotifier {
           builder: (context, state) => const HomeScreen(),
         ),
         GoRoute(
-          path: ChatScreen.route,
-          builder: (context, state) => const ChatScreen(),
+          path: '${ChatScreen.route}/:id',
+          builder: (context, state) => ChatScreen(
+            id: state.params['id']!,
+            userName: state.queryParams['userName']!,
+          ),
         ),
       ];
   Page<void> _errorPageBuilder(BuildContext context, GoRouterState state) =>
