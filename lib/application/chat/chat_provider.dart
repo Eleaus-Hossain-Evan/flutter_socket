@@ -1,21 +1,17 @@
 import 'package:flutter_socket/application/chat/chat_state.dart';
-import 'package:flutter_socket/application/socket/socket_method.dart';
 import 'package:flutter_socket/domain/message_send/message_send_body.dart';
 import 'package:flutter_socket/infustructure/chat_repo.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final chatProvider = StateNotifierProvider<ChatNotifier, ChatState>((ref) {
-  
   return ChatNotifier(ref, ChatRepo());
 });
 
 class ChatNotifier extends StateNotifier<ChatState> {
   final Ref ref;
   final ChatRepo repo;
-  
-  ChatNotifier(this.ref, this.repo, this.socket) : super(ChatState.init());
 
-  // final socketResponse = StreamController<socket.socketResponse>();
+  ChatNotifier(this.ref, this.repo) : super(ChatState.init());
 
   void getMessageList() async {
     state = state.copyWith(loading: true);
@@ -45,7 +41,7 @@ class ChatNotifier extends StateNotifier<ChatState> {
     }, (r) {
       allMessageView();
       success = true;
-     
+
       state = state.copyWith();
     });
     return success;
