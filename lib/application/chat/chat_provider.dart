@@ -5,14 +5,14 @@ import 'package:flutter_socket/infustructure/chat_repo.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final chatProvider = StateNotifierProvider<ChatNotifier, ChatState>((ref) {
-  final socket = ref.watch(socketProvider);
-  return ChatNotifier(ref, ChatRepo(), socket);
+  
+  return ChatNotifier(ref, ChatRepo());
 });
 
 class ChatNotifier extends StateNotifier<ChatState> {
   final Ref ref;
   final ChatRepo repo;
-  final SocketServices socket;
+  
   ChatNotifier(this.ref, this.repo, this.socket) : super(ChatState.init());
 
   // final socketResponse = StreamController<socket.socketResponse>();
@@ -45,7 +45,7 @@ class ChatNotifier extends StateNotifier<ChatState> {
     }, (r) {
       allMessageView();
       success = true;
-      socket.sendMessage(r.data);
+     
       state = state.copyWith();
     });
     return success;
