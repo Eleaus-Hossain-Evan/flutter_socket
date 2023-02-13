@@ -71,7 +71,7 @@ class MyApp extends HookConsumerWidget {
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: MaterialApp.router(
-            title: 'LMS',
+            title: 'Socket',
             debugShowCheckedModeBanner: false,
             themeMode: mode.isEmpty
                 ? ThemeMode.system
